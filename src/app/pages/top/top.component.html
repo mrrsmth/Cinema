@@ -1,0 +1,10 @@
+
+<div class="container">
+    <div class="top250">
+      <ul>
+        <li *ngFor="let film of top250.films; let inx = index">
+          <a [href]="'/film/' + film.filmId">{{ inx + 1 }} {{ film.nameRu }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>

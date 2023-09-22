@@ -1,0 +1,89 @@
+<div class="container">
+  <ng-template #load>
+    <p>Загрузка...</p>
+    <img
+      height="200px"
+      src="https://media1.giphy.com/media/10FwycrnAkpshW/giphy.gif"
+      alt="я джифка"
+    />
+  </ng-template>
+
+  <div *ngIf="!loading; else load">
+    <a routerLink="/top" class="previous">&laquo; Назад, блет!</a>
+    <h1>{{ data.nameRu }}</h1>
+    <h2>{{ data.nameOriginal }}</h2>
+
+    <img [src]="data.posterUrl" alt="" />
+
+    <div>
+      <h3>О фильме</h3>
+    </div>
+
+    <div class="row">
+      <div class="col strong">Год:</div>
+      <div class="col">{{ data.year }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col strong">Рейтинг:</div>
+      <div class="col">{{ data.ratingKinopoisk }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col strong">Режиссер:</div>
+      <div class="col">{{ data.ratingKinopoisk }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col strong">Бюджет:</div>
+      <div class="col">
+        <div *ngFor="let item of dataBoxOffice.items">
+          <div>{{ item.type }}: {{ item.amount }} {{ item.symbol }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col strong">трейлеры:</div>
+      <div class="col">
+        <span *ngFor="let item of dataVideos">
+          <ul>
+            <li>
+              <span>{{ item.name }}:</span>
+            </li>
+            <li>
+              <a [href]="item.url">{{ item.url | json }}</a>
+            </li>
+            <app-player
+              [video]="item.url"
+              [youtube]="item.site === 'YOUTUBE'"
+            ></app-player>
+          </ul>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col strong">Похожие фильмы:</div>
+      <div class="col">
+        <span *ngFor="let item of dataSimilars.items">
+          <span>{{ item.nameRu }},</span>
+        </span>
+      </div>
+    </div>
+    <!-- <app-player [video]="'https://www.youtube.com/embed/mccs8Ql8m8o'"></app-player> -->
+
+    <div class="row">
+      <div class="col strong">Рецензии пользователей:</div>
+      <div class="col">
+        <div *ngFor="let item of dataReviews.items; let idx = index">
+          <p>{{ idx + 1 }} {{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let item of dataVideos.items">
+      <app-player [video]="item.url"></app-player>
+    </div>
+  </div>
+</div>
